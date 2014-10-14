@@ -5,24 +5,24 @@ from google.appengine.api import users
 from google.appengine.ext.webapp import template
 
 def render_template(handler, templatename, templatevalues) :
-  path = os.path.join(os.path.dirname(__file__), 'templates/' + templatename)
-  html = template.render(path, templatevalues)
-  handler.response.out.write(html)
+    path = os.path.join(os.path.dirname(__file__), 'views/' + templatename)
+    html = template.render(path, templatevalues)
+    handler.response.out.write(html)
 
 class LandingPage(webapp2.RequestHandler):
   def get(self):
 
-    user = users.get_current_user()
     email = 'undefined'
     name = 'unregistered user'
+    user = users.get_current_user()
 
     if user:
         email = user.email
         name = user.email
 
     template_values = {
-      'login' : login_url,
-      'logout' : logout_url,
+      'login' : '',
+      'logout' : '',
       'email' : email,
       'nickname' : name,
     }
