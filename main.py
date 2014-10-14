@@ -10,24 +10,23 @@ def render_template(handler, templatename, templatevalues) :
     handler.response.out.write(html)
 
 class LandingPage(webapp2.RequestHandler):
-  def get(self):
+    def get(self):
+        email = 'undefined'
+        name = 'unregistered user'
+        user = users.get_current_user()
 
-    email = 'undefined'
-    name = 'unregistered user'
-    user = users.get_current_user()
+        if user:
+            email = user.email
+            name = user.email
 
-    if user:
-        email = user.email
-        name = user.email
+        template_values = {
+          'login' : '',
+          'logout' : '',
+          'email' : email,
+          'nickname' : name,
+        }
 
-    template_values = {
-      'login' : '',
-      'logout' : '',
-      'email' : email,
-      'nickname' : name,
-    }
-
-    render_template(self, 'index.html', template_values)
+        render_template(self, 'index.html', template_values)
 
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
