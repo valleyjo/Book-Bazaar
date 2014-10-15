@@ -34,8 +34,23 @@ class LandingPage(webapp2.RequestHandler):
 
         render_template(self, 'index.html', template_values)
 
+class BookListing(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        books = Book.all()
+        template_values = {
+            'login' : '',
+            'logout' : '',
+            'email' : email,
+            'nickname' : name,
+            'books' : books,
+        }
+
+        render_template(self, 'book_listing.html', template_values)
+
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
+    ('/books', BookListing),
 ], debug=True)
 
 app.run()
