@@ -12,7 +12,7 @@ def render_template(handler, templatename, templatevalues) :
 class Book(db.Model):
     title = db.StringProperty()
     author = db.StringProperty()
-    version = db.StringProperty()
+    edition = db.StringProperty()
     course_id = db.IntegerProperty()
     last_modified_date = db.DateTimeProperty(auto_now_add=True)
 
