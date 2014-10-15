@@ -9,6 +9,12 @@ def render_template(handler, templatename, templatevalues) :
     html = template.render(path, templatevalues)
     handler.response.out.write(html)
 
+class Book(db.Model):
+    title = ndb.StringProperty()
+    author = ndb.StringProperty()
+    version = ndb.StringProperty()
+    course_id = ndb.IntegerProperty()
+
 class LandingPage(webapp2.RequestHandler):
     def get(self):
         email = 'undefined'
