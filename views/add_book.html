@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% block bodycontent %}
+<form action="/sell" method="post" autocomplete="off">
+  Title: <input type="text" name="title"> </input> <br/> </br>
+  Author: <input type="text" name="author"> </input> </br> </br>
+  Edition: <input type="text" name="edition"> </input> </br> </br>
+  Course ID: <input type="text" name="course_id"> </input> </br> </br>
+  <input type="submit"></input>
+</form>
+{% endblock %}

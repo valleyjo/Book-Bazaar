@@ -41,17 +41,19 @@ class BookListing(webapp2.RequestHandler):
     def get(self):
         email = ''
         name = ''
+        logout_url = ''
         user = users.get_current_user()
 
         if user:
             email = user.email()
             name = user.nickname()
+            logout_url = users.create_logout_url('/')
 
         books = Book.all()
 
         template_values = {
             'login' : users.create_login_url('/'),
-            'logout' : users.create_logout_url('/'),
+            'logout' : logout_url,
             'email' : email,
             'nickname' : nickname,
             'books' : books,
@@ -61,25 +63,51 @@ class BookListing(webapp2.RequestHandler):
 
 class Dashboard(webapp2.RequestHandler):
     def get(self):
+        email = ''
+        name = ''
+        logout_url = ''
         user = users.get_current_user()
 
         if user:
             email = user.email()
             name = user.nickname()
+            logout_url = users.create_logout_url('/')
 
         template_values = {
             'login' : users.create_login_url('/'),
-            'logout' : users.create_logout_url('/'),
+            'logout' : logout_url,
             'email' : email,
             'nickname' : name,
         }
 
         render_template(self, 'dashboard.html', template_values)
 
+class AddBook(webapp2.RequestHandler):
+    def get(self):
+        email = ''
+        name = ''
+        logout_url = ''
+        user = users.get_current_user()
+
+        if user:
+            email = user.email()
+            name = user.nickname()
+            logout_url = users.create_logout_url('/')
+
+        template_values = {
+            'login' : users.create_login_url('/'),
+            'logout' : logout_url,
+            'email' : email,
+            'nickname' : name,
+        }
+
+        render_template(self, 'add_book.html', template_values)
+
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
     ('/books', BookListing),
     ('/dashboard', Dashboard),
+    ('/sell', AddBook),
 ], debug=True)
 
 app.run()
