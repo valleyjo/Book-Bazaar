@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+{% block bodycontent %}
+<h2>Books for Sale</h2>
+<p>All books currently for sale at the University of Pittsburgh</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Version</th>
+      <th>Course ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr>
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.version}}</td>
+      <td>@{{book.course_id}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
