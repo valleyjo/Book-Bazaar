@@ -1,5 +1,6 @@
 {% extends "layouts/base.html" %}
 {% block bodycontent %}
+{% if user %}
 <form action="/sell" method="post" autocomplete="off">
   Title: <input type="text" name="title"> </input> <br/> </br>
   Author: <input type="text" name="author"> </input> </br> </br>
@@ -7,4 +8,7 @@
   Course ID: <input type="text" name="course_id"> </input> </br> </br>
   <input type="submit"></input>
 </form>
+{% else %}
+<p>Sorry, but you have to sign in before you can register a book for sale!</p>
+{% endif %}
 {% endblock %}

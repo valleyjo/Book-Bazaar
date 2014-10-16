@@ -14,11 +14,17 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="/sell">Sell a book</a></li>
-          {% if logout %}
+          <li{% if tab_highlight == 1 %} class="active" {% endif %}>
+            <a href="/">{% if user %} Dashboard {% else %} Home {% endif %}</a>
+          </li>
+          <li{% if tab_highlight == 2 %} class="active" {% endif %}>
+            <a href="/sell">Sell a book</a>
+          </li>
+          <li{% if tab_highlight == 3 %} class="active" {% endif %}>
+            <a href="/buy">Buy a book</a>
+          </li>
+          {% if user %}
           <li><a href="{{logout}}">Log out</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
           {% else %}
           <li><a href="{{login}}">Log in</a></li>
           {% endif %}

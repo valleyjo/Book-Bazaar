@@ -18,44 +18,38 @@ class Book(db.Model):
 
 class LandingPage(webapp2.RequestHandler):
     def get(self):
-        email = ''
-        name = ''
-        logout_url = ''
+        email = 'unregistered user'
         user = users.get_current_user()
 
         if user:
             email = user.email()
-            name = user.nickname()
-            logout_url = users.create_logout_url('/')
 
         template_values = {
+            'tab_highlight': 1,
+            'user' : user,
             'login' : users.create_login_url('/'),
-            'logout' : logout_url,
+            'logout' : users.create_logout_url('/'),
             'email' : email,
-            'nickname' : name,
         }
 
         render_template(self, 'index.html', template_values)
 
-class BookListing(webapp2.RequestHandler):
+class Buy(webapp2.RequestHandler):
     def get(self):
-        email = ''
-        name = ''
-        logout_url = ''
+        email = 'unregistered user'
         user = users.get_current_user()
 
         if user:
             email = user.email()
-            name = user.nickname()
-            logout_url = users.create_logout_url('/')
 
         books = Book.all()
 
         template_values = {
+            'tab_highlight': 3,
+            'user': user,
             'login' : users.create_login_url('/'),
-            'logout' : logout_url,
+            'logout' : users.create_logout_url('/'),
             'email' : email,
-            'nickname' : name,
             'books' : books,
         }
 
@@ -63,42 +57,36 @@ class BookListing(webapp2.RequestHandler):
 
 class Dashboard(webapp2.RequestHandler):
     def get(self):
-        email = ''
-        name = ''
-        logout_url = ''
+        email = 'unregistered user'
         user = users.get_current_user()
 
         if user:
             email = user.email()
-            name = user.nickname()
-            logout_url = users.create_logout_url('/')
 
         template_values = {
+            'tab_highlight': 1,
+            'user': user,
             'login' : users.create_login_url('/'),
-            'logout' : logout_url,
+            'logout' : user.create_logout_url('/'),
             'email' : email,
-            'nickname' : name,
         }
 
         render_template(self, 'dashboard.html', template_values)
 
-class AddBook(webapp2.RequestHandler):
+class Sell(webapp2.RequestHandler):
     def get(self):
-        email = ''
-        name = ''
-        logout_url = ''
+        email = 'unregistered user'
         user = users.get_current_user()
 
         if user:
             email = user.email()
-            name = user.nickname()
-            logout_url = users.create_logout_url('/')
 
         template_values = {
+            'tab_highlight': 2,
+            'user': user,
             'login' : users.create_login_url('/'),
-            'logout' : logout_url,
+            'logout' : users.create_logout_url('/'),
             'email' : email,
-            'nickname' : name,
         }
 
         render_template(self, 'add_book.html', template_values)
@@ -116,9 +104,9 @@ class AddBook(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
-    ('/buy', BookListing),
+    ('/buy', Buy),
     ('/dashboard', Dashboard),
-    ('/sell', AddBook),
+    ('/sell', Sell),
 ], debug=True)
 
 app.run()
