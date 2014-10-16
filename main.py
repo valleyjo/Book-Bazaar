@@ -55,7 +55,7 @@ class BookListing(webapp2.RequestHandler):
             'login' : users.create_login_url('/'),
             'logout' : logout_url,
             'email' : email,
-            'nickname' : nickname,
+            'nickname' : name,
             'books' : books,
         }
 
@@ -103,9 +103,20 @@ class AddBook(webapp2.RequestHandler):
 
         render_template(self, 'add_book.html', template_values)
 
+    def post(self):
+        book = Book()
+        book.title = self.request.get('title')
+        book.author = self.request.get('author')
+        book.edition = self.request.get('edition')
+        book.course_id = int(self.request.get('course_id'))
+
+        book.put()
+
+        self.redirect('/buy')
+
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
-    ('/books', BookListing),
+    ('/buy', BookListing),
     ('/dashboard', Dashboard),
     ('/sell', AddBook),
 ], debug=True)
