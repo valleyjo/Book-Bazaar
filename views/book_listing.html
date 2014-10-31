@@ -5,6 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th></th>
       <th>Title</th>
       <th>Author</th>
       <th>Edition</th>
@@ -15,6 +16,7 @@
   <tbody>
     {% for book in books %}
     <tr>
+      <td><img src={{book.picture_url}} height="50px"></img></td>
       <td>{{book.title}}</td>
       <td>{{book.author}}</td>
       <td>{{book.edition}}</td>
