@@ -40,7 +40,7 @@ class Sell(BaseHandler):
     book_details = {
       'title':       parsable_json[isbn_param]['title'],
       'author':      parsable_json[isbn_param]['authors'][0]['name'],
-      'edition':     'edition unknown',
+      'edition':     'Edition Unknown',
       'isbn_10':     parsable_json[isbn_param]['identifiers']['isbn_10'][0],
       'isbn_13':     parsable_json[isbn_param]['identifiers']['isbn_13'][0],
       'picture_url': parsable_json[isbn_param]['cover']['large']
