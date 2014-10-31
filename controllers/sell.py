@@ -13,7 +13,7 @@ class Sell(BaseHandler):
                'user':          user,
                'email':         email }
 
-    self.renderTemplate('add_book', params)
+    self.renderTemplate('sell_book', params)
 
   def post(self):
     book_params = { 'title':     self.request.get('title'),
