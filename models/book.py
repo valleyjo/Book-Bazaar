@@ -6,6 +6,8 @@ class Book(db.Model):
   title         = db.StringProperty()
   author        = db.StringProperty()
   edition       = db.StringProperty()
+  isbn_10       = db.IntegerProperty()
+  isbn_13       = db.IntegerProperty()
   course_id     = db.StringProperty()
   date_modified = db.DateTimeProperty(auto_now_add=True)
 
@@ -19,4 +21,4 @@ class Book(db.Model):
     return book
 
   def __str__():
-    return title + " by " + author
+      return title + " by " + author
