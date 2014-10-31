@@ -8,7 +8,8 @@
       <th>Title</th>
       <th>Author</th>
       <th>Edition</th>
-      <th>Course ID</th>
+      <th>ISBN 10</th>
+      <th>ISBN 13</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +18,8 @@
       <td>{{book.title}}</td>
       <td>{{book.author}}</td>
       <td>{{book.edition}}</td>
-      <td>@{{book.course_id}}</td>
+      <td>{{book.isbn_10}}</td>
+      <td>{{book.isbn_13}}</td>
     </tr>
     {% endfor %}
   </tbody>
