@@ -1,14 +1,57 @@
 {% extends "layouts/base.html" %}
 {% block bodycontent %}
-{% if user %}
-<form action="/sell" method="post" autocomplete="off">
-  Title: <input type="text" name="title"> </input> <br/> </br>
-  Author: <input type="text" name="author"> </input> </br> </br>
-  Edition: <input type="text" name="edition"> </input> </br> </br>
-  Course ID: <input type="text" name="course_id"> </input> </br> </br>
-  <input type="submit"></input>
-</form>
-{% else %}
-<p>Sorry, but you have to sign in before you can register a book for sale!</p>
-{% endif %}
+
+<script>
+
+  $( document ).ready(function() {
+    $( '#isbn-search-form' ).on('submit', function (e) {
+      e.preventDefault();
+      var isbn = $( "#isbn" ).val();
+      console.log(isbn);
+
+      $.getJSON('/isbn_search?isbn=' + isbn, function(data) {
+
+        $("input[name='title']").val(data.title);
+        $("input[name='author']").val(data.author);
+        $("input[name='edition']").val(data.edition);
+        $("input[name='isbn_10']").val(data.isbn_10);
+        $("input[name='isbn_13']").val(data.isbn_13);
+        $("input[name='picture_url']").val(data.picture_url);
+        $("#cover-art").attr("src", data.picture_url);
+        $("p").addClass("hidden");
+        $("#isbn-search-results").removeClass("hidden");
+      });
+    });
+  });
+
+</script>
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <form role="form" id="isbn-search-form">
+      <div class="form-group">
+        <input type="text" class="form-control" id="isbn" placeholder="Book ISBN ex. 1250033314">
+      </div>
+      <button class="btn btn-default">Find Book</button>
+    </form>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div id="js-isbn-results">
+      <p>Search for your book by ISBN</p>
+      <form role="form" action="/sell" method="post" id="isbn-search-results" class="hidden">
+        <img src="" alt="Book Cover" width="100" id="cover-art"></img>
+        <div class="form-group">
+          <input name="title"       type="text" class="form-control" readonly></input>
+          <input name="author"      type="text" class="form-control" readonly></input>
+          <input name="edition"     type="text" class="form-control" readonly></input>
+          <input name="isbn_10"     type="text" class="form-control" readonly></input>
+          <input name="isbn_13"     type="text" class="form-control" readonly></input>
+          <input name="picture_url" type="text" class="form-control hidden" readonly></input>
+        </div>
+        <button type="submit" class="btn btn-default">List This Book!</button>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
