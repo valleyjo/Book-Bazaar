@@ -2,22 +2,26 @@
 {% block bodycontent %}
 <h2>Books for Sale</h2>
 <p>All books currently for sale at the University of Pittsburgh</p>
-<table class="table table-striped">
+<table class="table table-striped vert-align-center">
   <thead>
     <tr>
+      <th></th>
       <th>Title</th>
       <th>Author</th>
       <th>Edition</th>
-      <th>Course ID</th>
+      <th>ISBN 10</th>
+      <th>ISBN 13</th>
     </tr>
   </thead>
   <tbody>
     {% for book in books %}
     <tr>
+      <td><img src={{book.picture_url}} height="50px"></img></td>
       <td>{{book.title}}</td>
       <td>{{book.author}}</td>
       <td>{{book.edition}}</td>
-      <td>@{{book.course_id}}</td>
+      <td>{{book.isbn_10}}</td>
+      <td>{{book.isbn_13}}</td>
     </tr>
     {% endfor %}
   </tbody>
