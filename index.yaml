@@ -12,6 +12,25 @@ indexes:
 
 - kind: Book
   properties:
+  - name: author
+  - name: date_modified
+    direction: desc
+
+- kind: Book
+  properties:
+  - name: author
+  - name: title
+  - name: date_modified
+    direction: desc
+
+- kind: Book
+  properties:
   - name: seller_email
+  - name: date_modified
+    direction: desc
+
+- kind: Book
+  properties:
+  - name: title
   - name: date_modified
     direction: desc

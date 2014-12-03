@@ -90,8 +90,12 @@ class Sell(BaseHandler):
         title_lower = self.request.get('title1')
         title_lower = title_lower.lower()
 
+        author_lower = None
+        author_lower = self.request.get('author1')
+        author_lower = author_lower.lower()
+
         book_params = { 'title':      title_lower,
-                        'author':     self.request.get('author1'),
+                        'author':     author_lower,
                         'edition':    self.request.get('edition1'),
                         'isbn_10':    'None',
                         'isbn_13':    'None',

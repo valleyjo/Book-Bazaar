@@ -23,3 +23,5 @@ class LandingPage(BaseHandler):
                'books':         books }
 
     self.renderTemplate('index', params)
+
+

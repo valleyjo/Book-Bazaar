@@ -3,6 +3,7 @@ import webapp2
 from google.appengine.ext import db
 
 class Book(db.Model):
+  
   title           = db.StringProperty()
   author          = db.StringProperty()
   edition         = db.StringProperty()
