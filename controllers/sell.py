@@ -1,6 +1,7 @@
 from base_handler import *
 import urllib2
 import json
+from google.appengine.api import memcache
 
 class Sell(BaseHandler):
   @login_required
@@ -18,12 +19,13 @@ class Sell(BaseHandler):
     self.renderTemplate('sell_book', params)
 
   def post(self):
-    book_params = { 'title':       self.request.get('title'),
-                    'author':      self.request.get('author'),
-                    'edition':     self.request.get('edition'),
-                    'isbn_10':     self.request.get('isbn_10'),
-                    'isbn_13':     self.request.get('isbn_13'),
-                    'picture_url': self.request.get('picture_url') }
+
+    isbn_10 = self.request.get('isbn_10')
+
+    book_params = memcache.get(isbn_10)
+    if book_params is None:
+      book_params = isbn_lookup(isbn_10)
+      memcache.add(isbn_10, book_params)
 
     new_book = Book.create_book(book_params)
     new_book.put()
@@ -33,18 +35,27 @@ class Sell(BaseHandler):
     isbn = self.request.get('isbn')
     isbn_param = "ISBN:" + isbn
 
-    url = 'https://openlibrary.org/api/books?bibkeys=ISBN:' + isbn + '&jscmd=data&format=json'
-    raw_json = urllib2.urlopen(url).read()
-    parsable_json = json.loads(raw_json)
+    book_details = isbn_lookup(isbn)
 
-    book_details = {
-      'title':       parsable_json[isbn_param]['title'],
-      'author':      parsable_json[isbn_param]['authors'][0]['name'],
-      'edition':     'Edition Unknown',
-      'isbn_10':     parsable_json[isbn_param]['identifiers']['isbn_10'][0],
-      'isbn_13':     parsable_json[isbn_param]['identifiers']['isbn_13'][0],
-      'picture_url': parsable_json[isbn_param]['cover']['large']
-    };
+    data = memcache.get(isbn_10)
+    if data is None:
+      memcache.add(isbn_10, book_details)
 
     self.response.headers['Content-Type'] = 'application/json'
     self.response.out.write(json.dumps(book_details))
+
+    def isbn_lookup(isbn):
+      url = 'https://openlibrary.org/api/books?bibkeys=ISBN:' + isbn + '&jscmd=data&format=json'
+      raw_json = urllib2.urlopen(url).read()
+      parsable_json = json.loads(raw_json)
+
+      book_details = {
+        'title':       parsable_json[isbn_param]['title'],
+        'author':      parsable_json[isbn_param]['authors'][0]['name'],
+        'edition':     'Edition Unknown',
+        'isbn_10':     parsable_json[isbn_param]['identifiers']['isbn_10'][0],
+        'isbn_13':     parsable_json[isbn_param]['identifiers']['isbn_13'][0],
+        'picture_url': parsable_json[isbn_param]['cover']['large']
+      };
+
+      return book_details
