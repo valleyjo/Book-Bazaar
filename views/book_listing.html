@@ -1,7 +1,14 @@
 {% extends "layouts/base.html" %}
 {% block bodycontent %}
 <h2>Books for Sale</h2>
-<p>All books currently for sale at the University of Pittsburgh</p>
+<p>Search for Books currently for sale at the University of Pittsburgh.</p>
+<p>*Only one field entry is required, but the more the merrier*</p>
+<form action="/buy" method="get" autocomplete="off">
+ Title: <input type="text" name="title2"> </input> Author: <input type="text" name="author" placeholder="Lastname"> </input> </br> </br>
+  ISBN 10: <input type="text" name="isbn10"> </input> ISBN 13: <input type="text" name="isbn13"> </input> </br> </br>
+  <input type="submit" value="Search"></input>
+</form>
+
 <table class="table table-striped vert-align-center">
   <thead>
     <tr>
@@ -11,6 +18,7 @@
       <th>Edition</th>
       <th>ISBN 10</th>
       <th>ISBN 13</th>
+      <th>Seller Email</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +30,7 @@
       <td>{{book.edition}}</td>
       <td>{{book.isbn_10}}</td>
       <td>{{book.isbn_13}}</td>
+      <td>{{book.seller_email}}</td>
     </tr>
     {% endfor %}
   </tbody>
