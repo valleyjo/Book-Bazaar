@@ -14,10 +14,8 @@ class Buy(BaseHandler):
 
     search_title = self.request.get('title2')
 
-    search_title = search_title.lower()    
-
     if search_title:
-      q.filter("title =", search_title)
+        q = Book.gql("WHERE UPPER(title) = UPPER('" + search_title + "')")
 
     params = { 'tab_highlight': 3,
                'user':          user,
