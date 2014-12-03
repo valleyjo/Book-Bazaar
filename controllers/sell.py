@@ -32,21 +32,22 @@ class Sell(BaseHandler):
 
     def find_book_by_isbn(self):
         isbn = self.request.get('isbn')
-        isbn_param = "ISBN:" + isbn
 
-        book_details = isbn_lookup(isbn)
+        book_details = self.isbn_lookup(isbn)
 
-        data = memcache.get(isbn_10)
+        data = memcache.get(isbn)
         if data is None:
-          memcache.add(isbn_10, book_details)
+          memcache.add(isbn, book_details)
 
         self.response.headers['Content-Type'] = 'application/json'
         self.response.out.write(json.dumps(book_details))
 
-    def isbn_lookup(self, isbn):
+    @staticmethod
+    def isbn_lookup(isbn):
         url = 'https://openlibrary.org/api/books?bibkeys=ISBN:' + isbn + '&jscmd=data&format=json'
         raw_json = urllib2.urlopen(url).read()
         parsable_json = json.loads(raw_json)
+        isbn_param = "ISBN:" + isbn
 
         book_details = {
         'title':       parsable_json[isbn_param]['title'],
