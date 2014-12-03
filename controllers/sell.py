@@ -59,3 +59,24 @@ class Sell(BaseHandler):
         };
 
         return book_details
+
+    def sell_without_isbn(self):
+        email = 'unregistered user'
+        user = users.get_current_user()
+
+        if user:
+          email = user.email()
+
+        book_params = { 'title':       self.request.get('title1'),
+                        'author':      self.request.get('author1'),
+                        'edition':     self.request.get('edition1'),
+                        'isbn_10':      'None',
+                        'isbn_13':    'None',
+                        'picture_url': 'None'
+                         }
+
+        new_book = Book.create_book(book_params)
+        new_book.seller_email = email
+        new_book.put()
+
+        self.redirect('/buy')
