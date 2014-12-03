@@ -10,6 +10,7 @@ class Book(db.Model):
   isbn_13         = db.StringProperty()
   picture_url     = db.StringProperty()
   date_modified   = db.DateTimeProperty(auto_now_add=True)
+  seller_email    = db.StringProperty() 
 
   @classmethod
   def create_book(cls, params):

@@ -34,6 +34,26 @@
       </div>
       <button class="btn btn-default">Find Book</button>
     </form>
+
+
+    {% if user %}
+<form action="/sell2" method="post" autocomplete="off">
+  <p> Don't have ISBN? Enter Manually </p>
+  Title: <input type="text" name="title1"> </input> </br> </br>
+  Author: <input type="text" name="author1"> </input> </br> </br>
+  Edition: <input type="text" name="edition1"> </input> </br> </br>
+  <input type="submit"></input>
+</form>
+{% else %}
+<p>Sorry, but you have to sign in before you can register a book for sale!</p>
+{% endif %}
+
+
+
+
+
+
+
   </div>
   <div class="col-xs-12 col-md-6">
     <div id="js-isbn-results">
