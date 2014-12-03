@@ -6,8 +6,8 @@ app = webapp2.WSGIApplication([
     ('/buy',                'controllers.buy.Buy'),
     ('/dashboard',          'controllers.dashboard.Dashboard'),
     ('/sell',               'controllers.sell.Sell'),
-    ('/sell_without_isbn',  'controllers.sell.Sell:sell_without_isbn'),
     ('/delete',             'controllers.delete.Delete'),
+    webapp2.Route('/sell_without_isbn', 'controllers.sell.Sell:sell_without_isbn'),
     webapp2.Route('/isbn_search', 'controllers.sell.Sell:find_book_by_isbn')],
     debug=True)
 
