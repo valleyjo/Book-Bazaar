@@ -1,5 +1,4 @@
 from base_handler import *
-import logging
 
 class LandingPage(BaseHandler):
   def get(self):
@@ -8,34 +7,10 @@ class LandingPage(BaseHandler):
 
     if user:
       email = user.email()
-
-    books = Book.all()
-
-    q = Book.all()
-
-    q.filter("seller_email =", email)
-
-    q.order("-date_modified")
+      self.redirect('/dashboard')
 
     params = { 'tab_highlight': 1,
-               'user':          user,
-               'email':         email,
-               'q' : q,
-               'books':         books }
+             'user':          user,
+             'email':         email }
 
     self.renderTemplate('index', params)
-
-  def post(self):
-
-
-    key = self.request.get('k')
-    item = db.get(key)
-    db.delete(item)
-
-
-
-    if key:
-
-      self.redirect('/buy')
-   
-
