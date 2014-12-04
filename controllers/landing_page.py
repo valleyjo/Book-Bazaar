@@ -24,4 +24,6 @@ class LandingPage(BaseHandler):
 
     self.renderTemplate('index', params)
 
+def delete_item(self):
 
+  self.redirect('/buy')
