@@ -9,11 +9,8 @@ class Buy(BaseHandler):
       email = user.email()
 
     books = Book.all()
-
     q = Book.all()
-
     q.order("-date_modified")
-
 
     search_isbn10 = self.request.get('isbn10')
     search_isbn13 = self.request.get('isbn13')
@@ -34,8 +31,6 @@ class Buy(BaseHandler):
         q.filter('title =', search_title)
     elif search_Author:
         q.filter('author =', search_Author)
-
-    
 
     params = { 'tab_highlight': 3,
                'user':          user,
