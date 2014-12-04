@@ -23,8 +23,7 @@ class Dashboard(BaseHandler):
 
         self.renderTemplate('dashboard', params)
 
-    @login_required
-    def delete_listing(BaseHandler):
+    def delete_listing(self):
         key = self.request.get('delete_key')
         item = db.get(key)
         db.delete(item)

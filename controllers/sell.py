@@ -19,6 +19,11 @@ class Sell(BaseHandler):
         self.renderTemplate('sell_book', params)
 
     def post(self):
+        email = None
+        user = users.get_current_user()
+        if user:
+            email = user.email()
+
         isbn_10 = self.request.get('isbn_10')
 
         book_params = memcache.get(isbn_10)
@@ -27,6 +32,7 @@ class Sell(BaseHandler):
           memcache.add(isbn_10, book_params)
 
         new_book = Book.create_book(book_params)
+        new_book.seller_email = user.email()
         new_book.put()
         self.redirect('/buy')
 
@@ -56,35 +62,12 @@ class Sell(BaseHandler):
         'isbn_10':     parsable_json[isbn_param]['identifiers']['isbn_10'][0],
         'isbn_13':     parsable_json[isbn_param]['identifiers']['isbn_13'][0],
         'picture_url': parsable_json[isbn_param]['cover']['large']
-        };
+        }
 
         return book_details
 
     def sell_without_isbn(self):
-        email = 'unregistered user'
         user = users.get_current_user()
-
-        if user:
-          email = user.email()
-
-        book_params = { 'title':       self.request.get('title1'),
-                        'author':      self.request.get('author1'),
-                        'edition':     self.request.get('edition1'),
-                        'isbn_10':      'None',
-                        'isbn_13':    'None',
-                        'picture_url': 'None'
-                         }
-
-        new_book = Book.create_book(book_params)
-        new_book.seller_email = email
-        new_book.put()
-
-        self.redirect('/buy')
-
-    @login_required
-    def sell_without_isbn(self):
-        user = users.get_current_user()
-        email = user.email()
 
         title_lower = None
         title_lower = self.request.get('title1')
@@ -102,7 +85,7 @@ class Sell(BaseHandler):
                         'picture_url':'None' }
 
         new_book = Book.create_book(book_params)
-        new_book.seller_email = email
+        new_book.seller_email = user.email()
         new_book.put()
 
         self.redirect('/buy')

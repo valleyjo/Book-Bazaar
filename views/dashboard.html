@@ -31,8 +31,8 @@
           <td>{{book.isbn_13}}</td>
           <td name = "sellerD">{{book.seller_email}}</td>
           <td>
-            <form method="post" autocomplete="off">
-              <input type="hidden" name="k" value="{{book.key}}" />
+            <form method="post" autocomplete="off" action="/delete_listing">
+              <input type="hidden" name="delete_key" value="{{book.key}}" />
               <input type="submit" name="deleteButton" value="Delete"
                      class="btn btn-danger"></input>
             </form>
