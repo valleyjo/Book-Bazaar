@@ -1,4 +1,5 @@
 from base_handler import *
+import logging
 
 class LandingPage(BaseHandler):
   def get(self):
@@ -24,6 +25,16 @@ class LandingPage(BaseHandler):
 
     self.renderTemplate('index', params)
 
-def delete_item(self):
+  def post(self):
 
-  self.redirect('/buy')
+
+    key = self.request.get('k')
+    item = db.get(key)
+    db.delete(item)
+
+
+
+    if key:
+      self.redirect('/')
+   
+
