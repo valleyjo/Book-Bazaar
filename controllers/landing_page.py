@@ -7,9 +7,10 @@ class LandingPage(BaseHandler):
 
     if user:
       email = user.email()
+      self.redirect('/dashboard')
 
     params = { 'tab_highlight': 1,
-               'user':          user,
-               'email':         email }
+             'user':          user,
+             'email':         email }
 
     self.renderTemplate('index', params)

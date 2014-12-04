@@ -1,7 +1,49 @@
 {% extends "layouts/base.html" %}
 {% block bodycontent %}
 <h2>Books for Sale</h2>
-<p>All books currently for sale at the University of Pittsburgh</p>
+<p>Search for Books currently for sale at the University of Pittsburgh.</p>
+<form action="/buy" method="get" autocomplete="off" class="form-horizontal">
+      <div class="form-group">
+        <label for="title2" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+          <input type="text" name="title2" id="title2" class="form-control"
+                 placeholder="Programming for Dimwits">
+          </input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="author2" class="col-sm-2 control-label">Author</label>
+        <div class="col-sm-10">
+          <input type="text" name="author2" id="author2" class="form-control"
+                 placeholder="Last name only">
+          </input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="isbn10" class="col-sm-2 control-label">ISBN 10</label>
+        <div class="col-sm-10">
+          <input type="text" name="isbn10" id="isbn10" class="form-control"
+                 placeholder="0306406152">
+          </input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="isbn13" class="col-sm-2 control-label">ISBN 13</label>
+        <div class="col-sm-10">
+          <input type="text" name="isbn13" id="isbn13" class="form-control"
+                 placeholder="9783161484100">
+          </input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input value="Search" type="submit" class="btn btn-success control-label"></input>
+      </div>
+</form>
+
 <table class="table table-striped vert-align-center">
   <thead>
     <tr>
@@ -11,10 +53,11 @@
       <th>Edition</th>
       <th>ISBN 10</th>
       <th>ISBN 13</th>
+      <th>Seller Email</th>
     </tr>
   </thead>
   <tbody>
-    {% for book in books %}
+    {% for book in q %}
     <tr>
       <td><img src={{book.picture_url}} height="50px"></img></td>
       <td>{{book.title}}</td>
@@ -22,6 +65,7 @@
       <td>{{book.edition}}</td>
       <td>{{book.isbn_10}}</td>
       <td>{{book.isbn_13}}</td>
+      <td>{{book.seller_email}}</td>
     </tr>
     {% endfor %}
   </tbody>

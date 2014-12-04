@@ -1,5 +1,49 @@
 {% extends "layouts/base.html" %}
 {% block bodycontent %}
-<p>Welcome back, {{name}}</p>
-<p>Here's a summary of activity at your school</p>
+<div class="row">
+  <p>Welcome back, {{email}}</p>
+  {% if user_has_active_listings %}
+    <p>Here's a summary of the books you have for sale!</p>
+    <h2>Listings</h2>
+
+    <table class="table table-striped vert-align-center">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Edition</th>
+          <th>ISBN 10</th>
+          <th>ISBN 13</th>
+          <th>Seller Email</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{books_owned_by_user.size}}
+        {% for book in books_owned_by_user %}
+        <tr>
+          <td><img src={{book.picture_url}} height="50px"></img></td>
+          <td name = "titleD">{{book.title}}</td>
+          <td name = "authorD">{{book.author}}</td>
+          <td>{{book.edition}}</td>
+          <td>{{book.isbn_10}}</td>
+          <td>{{book.isbn_13}}</td>
+          <td name = "sellerD">{{book.seller_email}}</td>
+          <td>
+            <form method="post" autocomplete="off" action="/delete_listing">
+              <input type="hidden" name="delete_key" value="{{book.key}}" />
+              <input type="submit" name="deleteButton" value="Delete"
+                     class="btn btn-danger"></input>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  {% else %}
+    <p>You don't currently have any books for sale! List one
+    <a href="/sell">here</a>!</p>
+  {% endif %}
 {% endblock %}

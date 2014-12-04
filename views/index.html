@@ -1,28 +1,23 @@
 {% extends "layouts/base.html" %}
 {% block bodycontent %}
-{% if user %}
-<p>Welcome back, {{email}}</p>
-<p>Here's a summary of activity at your school!</p>
-{% else %}
-  <div class="jumbotron">
-    <h1>Book Bazaar</h1>
-    <p class="lead">No hassle book re-sale to other students at your university</p>
-    <p><a id="sign-up-button" class="btn btn-lg btn-success" href="{{login}}"
-      role="button">Sign up with Google</a></p>
-  </div>
+<div class="jumbotron">
+  <h1>Book Bazaar</h1>
+  <p class="lead">No hassle book re-sale to other students at your university</p>
+  <p><a id="sign-up-button" class="btn btn-lg btn-success" href="{{login}}"
+    role="button">Sign up with Google</a></p>
+</div>
 
-  <div class="row marketing">
-    <div class="col-lg-6">
-      <h4>No middleman</h4>
-      <p>We don't take any part of your sale price. We simply help you find
-      someone who wants to buy your books and negotiate a price.</p>
-    </div>
-    <div class="col-lg-6">
-      <h4>Sick of high text book prices?</h4>
-      <p>Everything in our college text books can be found online for free, so if
-        you have to buy a textbook you might as well get it for the lowest price!
-      </p>
-    </div>
+<div class="row marketing">
+  <div class="col-lg-6">
+    <h4>No middleman</h4>
+    <p>We don't take any part of your sale price. We simply help you find
+    someone who wants to buy your books and negotiate a price.</p>
   </div>
-  {% endif %}
-  {% endblock %}
+  <div class="col-lg-6">
+    <h4>Sick of high text book prices?</h4>
+    <p>Everything in our college text books can be found online for free, so if
+      you have to buy a textbook you might as well get it for the lowest price!
+    </p>
+  </div>
+</div>
+{% endblock %}
