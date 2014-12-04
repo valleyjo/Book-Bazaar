@@ -35,6 +35,7 @@ class LandingPage(BaseHandler):
 
 
     if key:
-      self.redirect('/')
+
+      self.redirect('/buy')
    
 
